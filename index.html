@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CountryList</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <form>
+        <h1>CountryList</h1>
+        <div id="myButton">
+            <input id="Country">
+            <button id="submit" type="button" onclick="loadSelection()">Show</button>
+            <button id="getAll" type="button" onclick="getAllCountries()">GetAll</button>
+
+        </div>
+    </form>
+
+    <div id="panel">
+
+    </div>
+
+    <script>
+        var xhr;
+        function getAllCountries() {
+            $.ajax({
+                url: "https://restcountries.eu/rest/v2/all?fields=name;topLevelDomain;capital;currencies;flag",
+                type: 'GET',
+                success: function (res) {
+                    xhr = res;
+                    countryDisplayer();
+                }
+            });
+        }
+        function loadSelection() {
+            let input = document.getElementById("Country").value;
+            $.ajax({
+                url: ("https://restcountries.eu/rest/v2/name/" + input + "?fields=name;topLevelDomain;capital;currencies;flag"),
+                type: 'GET',
+                success: function (res) {
+                    xhr = res;
+                    countryDisplayer();
+                }
+            });
+        }
+        function countryDisplayer() {
+          
+            while (panel.firstChild) {
+                panel.removeChild(panel.firstChild);
+            }
+            let country = {};
+            let name;
+            let topLevelDomain;
+            let capital;
+            let currencies;
+            let flag;
+            for (i = 0; i < xhr.length; i++) {
+                country = xhr[i];
+                name = country.name
+                topLevelDomain = country.topLevelDomain;
+                capital = country.capital;
+                currencies = JSON.stringify(country.currencies);
+                flag = country.flag;
+       
+                let countrySpot = document.createElement("div");
+                countrySpot.id = "countryspot";
+                let panel = document.getElementById("panel");
+                panel.appendChild(countrySpot);
+            
+                let nameArea = document.createElement("div");
+                let topLevelDomainArea = document.createElement("div");
+                let capitalArea = document.createElement("div");
+                let currenciesArea = document.createElement("div");
+                let flagArea = document.createElement("img");
+                countrySpot.appendChild(nameArea);
+                nameArea.id = "nameArea";
+                nameArea.innerText = ("name: " + name);
+                countrySpot.appendChild(topLevelDomainArea);
+                topLevelDomainArea.id = "topLevelDomainArea";
+                topLevelDomainArea.innerText = ("Top Level Domain: " + topLevelDomain);
+                countrySpot.appendChild(capitalArea);
+                capitalArea.id = "capitalArea"
+                capitalArea.innerText = ("Capital: " + capital);
+                countrySpot.appendChild(currenciesArea);
+                currenciesArea.id = "currenciesArea"
+                currenciesArea.innerText = ("Currencies: " + currencies);
+                countrySpot.appendChild(flagArea);
+                flagArea.id = "flagArea";
+                flagArea.setAttribute("src", flag);
+            }
+        }
+    </script>
+
+</body>
+
+</html> 
+ 
+
