@@ -1,0 +1,56 @@
+
+body{
+    
+    background-image: url("image3.jpg");
+}
+#kav {
+    border: 7px solid black;
+    border-radius: 15px;
+}
+#underLLine {
+    text-decoration: underline;
+    text-shadow: 4px 4px rgba(3, 1, 1, 0.39);
+}
+#results { 
+    margin-top: 3%;
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.User{
+	border: solid black 3px;
+    width: fit-content;
+    margin: 1%;
+    padding: 1%;
+}
+img {
+    width: 100px;   
+}
+
+button {
+    border-radius: 10%;
+    margin: 2px;
+    background-color:rgb(102, 100, 100);
+    color: black;
+}
+
+.saveButton,.cancelButton{
+    display:none;
+}
+
+.saveButton{
+    background: black;
+    color: white;
+}
+.cancelButton{
+    background: black;
+    color: white;
+}
+
+span{
+    display:inline;
+}
+
+textarea{
+    margin-left: 3px;
+}
